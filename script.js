@@ -37,7 +37,7 @@ function storeValues() {
                     operator = "";
                     shouldReset = true;
                 };
-            } else if (key.className === "operand") {
+            } else if (key.className === "operator") {
                 if (currNum){
                     operator = key.value;
                     prevNum = currNum;
@@ -69,9 +69,9 @@ function storeValues() {
                         currNum = key.value;
                     } else {
                         currNum += key.value;
-                        shouldReset = false;
                     };
                 };
+                shouldReset = false;
                 displayValue = currNum;
                 displayResult();
             }; 
