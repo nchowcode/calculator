@@ -5,8 +5,10 @@ const buttons = document.querySelectorAll("button");
 let currNum = "";
 let prevNum = "";
 let operator = "";
-let displayValue = "";
+let displayValue = "0";
 let shouldReset = false;
+
+const MAX_LENGTH = 10;
 
 function calculate(prevNum, currNum, operator){
     const num1 = parseFloat(prevNum);
@@ -14,17 +16,23 @@ function calculate(prevNum, currNum, operator){
 
     switch (operator) {
         case "+" :
-            return (num1 + num2).toString();
+            result = (num1 + num2);
+            break;
         case "-" :
-            return (num1 - num2).toString();
+            result = (num1 - num2);
+            break;
         case "/":
-            return (num2 != 0 ? (num1 / num2).toString() : "Error");
+            result = (num2 != 0 ? (num1 / num2) : "Error");
+            break;
         case "*":
-            return (num1 * num2);
+            result = (num1 * num2);
+            break;
     }
+    return formatResult(result);
 }
-function storeValues() {
 
+function storeValues() {
+    
     buttons.forEach(key => {
         key.addEventListener('click', () => {
             console.log(key);
@@ -64,9 +72,9 @@ function storeValues() {
                 if (key.className === "numeric") {
                     if (shouldReset){
                         currNum = key.value;
-                    } else {
+                    } else if (currNum.length <= MAX_LENGTH) {
                         currNum += key.value;
-                    };
+                    }
                 };
                 shouldReset = false;
                 displayResult();
@@ -86,9 +94,25 @@ function clear(){
 }
 
 function displayResult(){
-    displayValue = currNum * 1;
+    displayValue = currNum;
     display.innerHTML = displayValue;
     display.style.color = "white";
 }
 
+function formatResult(result){
+    if (result === "Error"){
+        return result;
+    };
+    
+    if (Math.round(result) > 1e8){
+        return result.toExponential(1);
+    } else if (result.toString().includes(".") && result.toString().length > MAX_LENGTH){
+        const numSize = Math.round(result).toString().length;
+        return result.toFixed(MAX_LENGTH - numSize);
+    } else {
+        return result;
+    }
+};
+
+displayResult()
 storeValues();
