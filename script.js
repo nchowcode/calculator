@@ -6,7 +6,6 @@ let currNum = "";
 let prevNum = "";
 let operator = "";
 let displayValue = "";
-
 let shouldReset = false;
 
 function calculate(prevNum, currNum, operator){
@@ -37,7 +36,7 @@ function storeValues() {
                     prevNum = "";
                     operator = "";
                     shouldReset = true;
-                }
+                };
             } else if (key.className === "operand") {
                 if (currNum){
                     operator = key.value;
@@ -48,20 +47,31 @@ function storeValues() {
             } else if (key.className === "status") {
                 clear();
                 displayResult();
-                shouldReset = true;
             } else if (key.className === "rounding"){
                 currNum += key.value;
                 shouldReset = false;
+                displayValue = currNum;
+                displayResult();
+            } else if (key.className === "percent"){
+                currNum *= key.value;
+                shouldReset = false;
+                displayValue = currNum;
+                displayResult();
+            } else if (key.className === "sign"){
+                currNum = currNum * -1;
+                displayValue = currNum;
+                displayResult();
             } else {      
                 if (key.className === "numeric") {
                     if (shouldReset){
                         currNum = key.value;
-                } else {
-                    currNum += key.value;
+                    } else {
+                        currNum += key.value;
+                        shouldReset = false;
+                    };
                 };
-            };
-            displayValue = currNum;
-            displayResult();
+                displayValue = currNum;
+                displayResult();
             }; 
     });
     });
