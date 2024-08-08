@@ -48,7 +48,9 @@ function storeValues() {
                 clear();
                 displayResult();
             } else if (key.className === "rounding"){
-                currNum += key.value;
+                if (!currNum.includes(".")){
+                    currNum += key.value;
+                } 
                 shouldReset = false;
                 displayValue = currNum;
                 displayResult();
