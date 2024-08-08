@@ -7,6 +7,8 @@ let prevNum = "";
 let operator = "";
 let displayValue = "";
 
+let shouldReset = false;
+
 function calculate(prevNum, currNum, operator){
     const num1 = parseFloat(prevNum);
     const num2 = parseFloat(currNum);
@@ -29,30 +31,44 @@ function storeValues() {
             console.log(key);
             if (key.value === "="){
                 if (prevNum && currNum && operator){
-                    const solution = calculate(prevNum, currNum, operator)
-                    displayValue = solution;
+                    currNum = calculate(prevNum, currNum, operator)
+                    displayValue = currNum;
                     displayResult();
+                    prevNum = "";
+                    operator = "";
+                    shouldReset = true;
                 }
-            };
-            if (key.className === "numeric"){
-                currNum += key.value;
-                displayValue = currNum;
+            } else if (key.className === "operand") {
+                if (currNum){
+                    operator = key.value;
+                    prevNum = currNum;
+                    currNum = "";
+                    shouldReset = false;
+                }
+            } else if (key.className === "status") {
+                clear();
                 displayResult();
+                shouldReset = true;
+            } else {      
+                if (key.className === "numeric") {
+                    if (shouldReset){
+                        currNum = key.value;
+                } else {
+                    currNum += key.value;
+                };
             };
-            if (key.className === "operand"){
-                console.log("operand clicked");
-                operator = key.value;
-                if (key.className === "numeric"){
-                    secondNum += key.value;
-                    displayValue = secondNum;
-                    displayResult();
-                }
-
-            } 
-
-            
+            displayValue = currNum;
+            displayResult();
+            }; 
     });
     });
+};
+
+function clear(){
+    currNum = "";
+    prevNum = "";
+    operator = "";
+    displayValue = ""
 }
 
 function displayResult(){
