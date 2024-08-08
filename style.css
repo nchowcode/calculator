@@ -58,6 +58,10 @@ button.numeric[value="0"] {
 }
 
 button.operator {
-
+    background-color: lightcoral;
 }
 
+button.percent, button.sign, button.status {
+    background-color: lightgrey;
+    color: black;
+}
