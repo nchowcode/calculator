@@ -94,7 +94,11 @@ function clear(){
 }
 
 function displayResult(){
-    displayValue = currNum;
+    if (currNum) {
+        displayValue = currNum;
+    } else{
+        displayValue = "0";
+    }
     display.innerHTML = displayValue;
     display.style.color = "white";
 }
