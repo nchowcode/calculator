@@ -27,7 +27,7 @@ function calculate(prevNum, currNum, operator){
 function storeValues() {
 
     buttons.forEach(key => {
-        key.addEventListener('click', (event) => {
+        key.addEventListener('click', () => {
             console.log(key);
             if (key.value === "="){
                 if (prevNum && currNum && operator){
@@ -49,6 +49,9 @@ function storeValues() {
                 clear();
                 displayResult();
                 shouldReset = true;
+            } else if (key.className === "rounding"){
+                currNum += key.value;
+                shouldReset = false;
             } else {      
                 if (key.className === "numeric") {
                     if (shouldReset){
