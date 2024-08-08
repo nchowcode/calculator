@@ -32,7 +32,6 @@ function storeValues() {
             if (key.value === "="){
                 if (prevNum && currNum && operator){
                     currNum = calculate(prevNum, currNum, operator)
-                    displayValue = currNum;
                     displayResult();
                     prevNum = "";
                     operator = "";
@@ -53,16 +52,13 @@ function storeValues() {
                     currNum += key.value;
                 } 
                 shouldReset = false;
-                displayValue = currNum;
                 displayResult();
             } else if (key.className === "percent"){
                 currNum *= key.value;
                 shouldReset = false;
-                displayValue = currNum;
                 displayResult();
             } else if (key.className === "sign"){
                 currNum = currNum * -1;
-                displayValue = currNum;
                 displayResult();
             } else {      
                 if (key.className === "numeric") {
@@ -73,7 +69,6 @@ function storeValues() {
                     };
                 };
                 shouldReset = false;
-                displayValue = currNum;
                 displayResult();
             }; 
         setTimeout(() => {
@@ -91,6 +86,7 @@ function clear(){
 }
 
 function displayResult(){
+    displayValue = currNum * 1;
     display.innerHTML = displayValue;
     display.style.color = "white";
 }
