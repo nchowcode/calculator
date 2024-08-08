@@ -43,12 +43,13 @@
 
 
 button {
+    transition: background-color 0.5s ease;
     width: 4em;
     border: none;
     flex-grow: 0;
     font: bold 20px Arial;
     color: white;
-    background: gray;
+    background-color: gray;
     border-radius: 1em;
 }
 

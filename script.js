@@ -28,6 +28,7 @@ function storeValues() {
     buttons.forEach(key => {
         key.addEventListener('click', () => {
             console.log(key);
+            key.style.backgroundColor = "orange";
             if (key.value === "="){
                 if (prevNum && currNum && operator){
                     currNum = calculate(prevNum, currNum, operator)
@@ -75,6 +76,9 @@ function storeValues() {
                 displayValue = currNum;
                 displayResult();
             }; 
+        setTimeout(() => {
+            key.style.backgroundColor = "";
+        }, 300);
     });
     });
 };
@@ -90,6 +94,5 @@ function displayResult(){
     display.innerHTML = displayValue;
     display.style.color = "white";
 }
-
 
 storeValues();
