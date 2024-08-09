@@ -34,6 +34,14 @@ function calculate(prevNum, currNum, operator){
 function storeValues() {
     
     buttons.forEach(key => {
+        key.addEventListener('mouseover' , () => {
+            key.style.opacity = "0.8";
+        });
+
+        key.addEventListener('mouseout' , () => {
+            key.style.opacity = "1.0";
+        });
+
         key.addEventListener('click', () => {
             console.log(key);
             key.style.backgroundColor = "orange";
@@ -81,7 +89,7 @@ function storeValues() {
             }; 
         setTimeout(() => {
             key.style.backgroundColor = "";
-        }, 300);
+        }, 600);
     });
     });
 };
