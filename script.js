@@ -41,7 +41,6 @@ function storeValues() {
             button.style.opacity = "1.0";
         });
         button.addEventListener('click', () => {
-            console.log(button);
             button.style.backgroundColor = "orange";
             if (button.value === "="){
                 if (prevNum && currNum && operator){
@@ -125,7 +124,6 @@ function formatResult(result){
 };
 
 window.addEventListener('keydown', (keybind) => {
-    console.log(keybind.key);
     const keyval = document.querySelector(`button[keyboard='${keybind.key}']`);
 
     if (keyval) {
