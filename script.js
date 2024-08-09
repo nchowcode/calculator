@@ -1,5 +1,5 @@
 const display = document.querySelector(".display");
-const keypad = document.querySelector(".keypad");
+const buttonpad = document.querySelector(".buttonpad");
 const buttons = document.querySelectorAll("button");
 
 let currNum = "";
@@ -32,20 +32,18 @@ function calculate(prevNum, currNum, operator){
 }
 
 function storeValues() {
-    
-    buttons.forEach(key => {
-        key.addEventListener('mouseover' , () => {
-            key.style.opacity = "0.8";
+    buttons.forEach(button => {
+        button.addEventListener('mouseover' , () => {
+            button.style.opacity = "0.8";
         });
 
-        key.addEventListener('mouseout' , () => {
-            key.style.opacity = "1.0";
+        button.addEventListener('mouseout' , () => {
+            button.style.opacity = "1.0";
         });
-
-        key.addEventListener('click', () => {
-            console.log(key);
-            key.style.backgroundColor = "orange";
-            if (key.value === "="){
+        button.addEventListener('click', () => {
+            console.log(button);
+            button.style.backgroundColor = "orange";
+            if (button.value === "="){
                 if (prevNum && currNum && operator){
                     currNum = calculate(prevNum, currNum, operator)
                     displayResult();
@@ -53,42 +51,42 @@ function storeValues() {
                     operator = "";
                     shouldReset = true;
                 };
-            } else if (key.className === "operator") {
+            } else if (button.className === "operator") {
                 if (currNum){
-                    operator = key.value;
+                    operator = button.value;
                     prevNum = currNum;
                     currNum = "";
                     shouldReset = false;
                 }
-            } else if (key.className === "status") {
+            } else if (button.className === "status") {
                 clear();
                 displayResult();
-            } else if (key.className === "rounding"){
-                if (!currNum.includes(".")){
-                    currNum += key.value;
+            } else if (button.className === "rounding"){
+                if (!currNum.toString().includes(".")){
+                    currNum += button.value;
                 } 
                 shouldReset = false;
                 displayResult();
-            } else if (key.className === "percent"){
-                currNum *= key.value;
+            } else if (button.className === "percent"){
+                currNum *= button.value;
                 shouldReset = false;
                 displayResult();
-            } else if (key.className === "sign"){
+            } else if (button.className === "sign"){
                 currNum = currNum * -1;
                 displayResult();
             } else {      
-                if (key.className === "numeric") {
+                if (button.className === "numeric") {
                     if (shouldReset){
-                        currNum = key.value;
+                        currNum = button.value;
                     } else if (currNum.length <= MAX_LENGTH) {
-                        currNum += key.value;
+                        currNum += button.value;
                     }
                 };
                 shouldReset = false;
                 displayResult();
             }; 
         setTimeout(() => {
-            key.style.backgroundColor = "";
+            button.style.backgroundColor = "";
         }, 600);
     });
     });
@@ -126,5 +124,14 @@ function formatResult(result){
     }
 };
 
-displayResult()
+window.addEventListener('keydown', (keybind) => {
+    console.log(keybind.key);
+    const keyval = document.querySelector(`button[keyboard='${keybind.key}']`);
+
+    if (keyval) {
+        keyval.click();
+    }
+});
+
+displayResult();
 storeValues();
