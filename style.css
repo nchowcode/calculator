@@ -1,16 +1,35 @@
 * {
     box-sizing: border-box;
 }
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font: xx-large Arial;
+}
+
+
 .container, .keypad, .display, .keypad-row {
     display: flex;
 }
 
 .container {
+    position: relative;
     flex-direction: column;
     flex: auto;
-    height: 600px;
-    width: 400px;
-    border: solid gray;
+    max-height: 600px;
+    max-width: 400px;
+    border-radius: 20px;
 }
 
 .keypad {
@@ -21,6 +40,7 @@
     background-color: black;
     height: auto;
     flex-direction: column;
+    border-radius: 0 0 20px 20px;
 }
 
 .keypad-row{
@@ -40,6 +60,7 @@
     background-color: black;
     font: 50px Arial; 
     padding-right: .5em;
+    border-radius: 20px 20px 0 0;
 }
 
 
